@@ -1,185 +1,224 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Quà tặng cô - 20/11</title>
-  <style>
-    :root{--bg:#fff8f0;--card:#ffffff;--accent:#e76f51;--muted:#6b7280}
-    *{box-sizing:border-box}body{margin:0;font-family:Inter, system-ui, Arial, sans-serif;background:linear-gradient(180deg,var(--bg),#fff);color:#111}
-    .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:28px}
-    .card{width:900px;max-width:100%;background:var(--card);border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,0.08);overflow:hidden;display:grid;grid-template-columns:1fr 420px}
-    .left{padding:36px}
-    h1{margin:0;font-size:28px;color:var(--accent)}
-    p.lead{margin:10px 0 22px;color:var(--muted)}
-    .message{background:linear-gradient(90deg,#fff,#fff8f0);padding:18px;border-radius:12px;border:1px solid rgba(0,0,0,0.04)}
-    .message textarea{width:100%;border:0;background:transparent;resize:none;font-size:16px;line-height:1.5;padding:6px;min-height:130px}
-    .meta{display:flex;gap:10px;margin-top:12px}
-    .meta input[type=text]{flex:1;padding:8px 10px;border-radius:10px;border:1px solid rgba(0,0,0,0.08)}
-    .controls{display:flex;gap:8px;margin-top:14px}
-    button{cursor:pointer;border:0;padding:10px 14px;border-radius:10px;font-weight:600}
-    .btn-primary{background:var(--accent);color:#fff}
-    .btn-ghost{background:transparent;border:1px solid rgba(0,0,0,0.06)}
-    .right{background:linear-gradient(180deg,#fff,#fff7f2);padding:22px;display:flex;flex-direction:column;align-items:center;gap:12px}
-    .preview{width:100%;height:320px;border-radius:12px;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;background:linear-gradient(120deg,#fdf0ea,#fff)}
-    .preview img{max-width:100%;max-height:100%;object-fit:cover}
-    .upload{display:flex;gap:8px;width:100%}
-    .upload input{display:none}
-    .small{font-size:13px;color:var(--muted)}
-    footer.small{font-size:12px;color:var(--muted);text-align:center;margin-top:10px}
-    .confetti-canvas{position:absolute;inset:0;pointer-events:none}
-    @media(max-width:880px){.card{grid-template-columns:1fr} .right{order:-1}}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiệp Chúc Mừng 20/11</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .card-container {
+            perspective: 1000px;
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        .card {
+            width: 100%;
+            height: 600px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            cursor: pointer;
+        }
+        
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .card-front {
+            background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 100%);
+            color: #fff;
+        }
+        
+        .card-back {
+            background: linear-gradient(45deg, #a1c4fd 0%, #c2e9fb 100%);
+            color: #333;
+            transform: rotateY(180deg);
+            overflow: hidden;
+        }
+        
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+        
+        .title {
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .message {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        
+        .flowers {
+            font-size: 40px;
+            margin: 20px 0;
+        }
+        
+        .input-group {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        button {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        button:hover {
+            background: #ff5252;
+        }
+        
+        .signature {
+            margin-top: 20px;
+            font-style: italic;
+            font-weight: bold;
+        }
+        
+        .instruction {
+            position: absolute;
+            bottom: 20px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .heart {
+            color: #ff6b6b;
+            font-size: 24px;
+            margin: 0 5px;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            opacity: 0.7;
+            border-radius: 50%;
+        }
+    </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="card" role="application" aria-label="E-card 20/11">
-      <div class="left">
-        <h1>Chúc mừng 20/11 — Tặng cô</h1>
-        <p class="lead">Tạo thiệp điện tử, thêm ảnh kỷ niệm, nhạc nền và in/ gửi ngay.</p>
-
-        <div class="message">
-          <label for="teacherName" class="small">Tên cô:</label>
-          <input id="teacherName" type="text" value="Cô yêu quý" style="width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid rgba(0,0,0,0.06);">
-
-          <label class="small" style="display:block;margin-top:10px">Lời chúc:</label>
-          <textarea id="mainMessage">Kính chào cô! Chúc cô 20/11 vui vẻ, nhiều sức khỏe và luôn là ngọn hải đăng dẫn dắt chúng em trên con đường tri thức. Cảm ơn cô vì mọi điều!</textarea>
-
-          <div class="meta">
-            <input id="fromName" type="text" placeholder="Từ (ví dụ: Lớp 12A)" />
-            <input id="dateText" type="text" value="20/11/2025" />
-          </div>
-
-          <div class="controls">
-            <button id="updateBtn" class="btn-primary">Cập nhật xem trước</button>
-            <button id="printBtn" class="btn-ghost">In / Lưu PDF</button>
-            <button id="downloadBtn" class="btn-ghost">Tải file HTML</button>
-          </div>
+    <div class="card-container">
+        <div class="card" id="card">
+            <div class="card-front">
+                <h1 class="title">Chào Mừng Ngày Nhà Giáo Việt Nam 20/11</h1>
+                <div class="flowers">🌷🌸🌹🌺🌻🌼</div>
+                <p class="message">Nhân ngày 20/11, em xin gửi đến cô lời chúc tốt đẹp nhất!</p>
+                <p class="instruction">Nhấn vào thiệp để viết lời chúc</p>
+            </div>
+            <div class="card-back">
+                <h2 class="title">Gửi Lời Chúc Đến Cô</h2>
+                <div class="input-group">
+                    <input type="text" id="senderName" placeholder="Tên của bạn">
+                </div>
+                <div class="input-group">
+                    <textarea id="customMessage" rows="4" placeholder="Viết lời chúc của bạn...">Nhân ngày Nhà giáo Việt Nam 20/11, em xin gửi đến cô lời chúc chân thành nhất. Chúc cô luôn mạnh khỏe, hạnh phúc và thành công trong sự nghiệp trồng người. Cảm ơn cô vì tất cả!</textarea>
+                </div>
+                <button id="updateMessage">Cập Nhật Lời Chúc</button>
+                <div class="flowers">💐🌹🌷🌸</div>
+                <p class="message" id="displayMessage">Nhân ngày Nhà giáo Việt Nam 20/11, em xin gửi đến cô lời chúc chân thành nhất. Chúc cô luôn mạnh khỏe, hạnh phúc và thành công trong sự nghiệp trồng người. Cảm ơn cô vì tất cả!</p>
+                <p class="signature" id="displaySignature">Kính chúc, <span id="displayName">Học sinh</span></p>
+                <div class="instruction">Nhấn vào thiệp để quay lại</div>
+            </div>
         </div>
-
-        <div style="margin-top:16px">
-          <label class="small">Chọn nhạc nền (tuỳ chọn):</label>
-          <select id="musicSelect" style="width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid rgba(0,0,0,0.06)">
-            <option value="">Không có nhạc</option>
-            <option value="happy">Giai điệu ấm áp</option>
-            <option value="piano">Piano nhẹ</option>
-          </select>
-        </div>
-
-        <footer class="small">Bạn có thể gửi link file HTML hoặc in để tặng cô. Muốn mình cá nhân hoá nội dung? Nói tên cô và thông tin nhé.</footer>
-      </div>
-
-      <div class="right">
-        <div class="preview" id="preview">
-          <canvas class="confetti-canvas" id="confetti"></canvas>
-          <div style="text-align:center;padding:18px">
-            <h2 id="previewName">Cô yêu quý</h2>
-            <p id="previewMsg" style="white-space:pre-wrap;max-width:88%">Kính chào cô! Chúc cô 20/11 vui vẻ, nhiều sức khỏe và luôn là ngọn hải đăng dẫn dắt chúng em trên con đường tri thức. Cảm ơn cô vì mọi điều!</p>
-            <img id="previewImg" alt="Ảnh kỷ niệm" style="display:none;border-radius:10px;margin-top:10px;max-width:88%;height:auto"/>
-            <div style="margin-top:8px;font-size:13px;color:var(--muted)" id="previewFrom">Từ: Lớp 12A — 20/11/2025</div>
-          </div>
-        </div>
-
-        <div class="upload">
-          <label for="imgUpload" class="btn-ghost" style="padding:8px 12px;border-radius:10px;display:inline-block">Tải ảnh lên</label>
-          <input id="imgUpload" type="file" accept="image/*" />
-          <button id="removeImg" class="btn-ghost">Xóa ảnh</button>
-        </div>
-
-        <div style="width:100%;display:flex;gap:8px">
-          <button id="startConfetti" class="btn-primary" style="flex:1">Bật pháo hoa</button>
-          <button id="stopConfetti" class="btn-ghost" style="flex:1">Tắt</button>
-        </div>
-      </div>
     </div>
-  </div>
 
-  <audio id="music" loop preload="auto"></audio>
-
-  <script>
-    // Simple preview update
-    const teacherName = document.getElementById('teacherName');
-    const mainMessage = document.getElementById('mainMessage');
-    const fromName = document.getElementById('fromName');
-    const dateText = document.getElementById('dateText');
-    const updateBtn = document.getElementById('updateBtn');
-    const previewName = document.getElementById('previewName');
-    const previewMsg = document.getElementById('previewMsg');
-    const previewFrom = document.getElementById('previewFrom');
-    const previewImg = document.getElementById('previewImg');
-    const imgUpload = document.getElementById('imgUpload');
-    const removeImg = document.getElementById('removeImg');
-    const printBtn = document.getElementById('printBtn');
-    const downloadBtn = document.getElementById('downloadBtn');
-    const music = document.getElementById('music');
-    const musicSelect = document.getElementById('musicSelect');
-
-    updateBtn.addEventListener('click', ()=>{
-      previewName.textContent = teacherName.value || 'Cô yêu quý';
-      previewMsg.textContent = mainMessage.value || '';
-      const from = fromName.value ? fromName.value : 'Học sinh thân mến';
-      previewFrom.textContent = `Từ: ${from} — ${dateText.value || ''}`;
-    });
-
-    imgUpload.addEventListener('change', e=>{
-      const file = e.target.files[0];
-      if(!file) return;
-      const reader = new FileReader();
-      reader.onload = function(ev){
-        previewImg.src = ev.target.result; previewImg.style.display='block';
-      }
-      reader.readAsDataURL(file);
-    });
-    removeImg.addEventListener('click', ()=>{previewImg.src='';previewImg.style.display='none';imgUpload.value='';});
-
-    printBtn.addEventListener('click', ()=>{window.print();});
-
-    downloadBtn.addEventListener('click', ()=>{
-      const blob = new Blob([document.documentElement.outerHTML], {type:'text/html'});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a'); a.href = url; a.download = 'Qua_Tang_Co_20-11.html'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
-    });
-
-    musicSelect.addEventListener('change', ()=>{
-      const v = musicSelect.value;
-      if(!v){music.pause();music.src=''; return}
-      // Built-in tiny melodies as base64 data URIs would be large; using short embedded notes via WebAudio would be better,
-      // but for simplicity we use tiny generated beep streams. We'll synthesize simple background via Oscillator when chosen.
-      if(v==='happy' || v==='piano'){
-        startSynth(v);
-      }
-    });
-
-    // Simple synth (no external files)
-    let audioCtx, synthOsc, synthGain, synthTimer;
-    function startSynth(style){
-      stopSynth();
-      try{
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        synthGain = audioCtx.createGain(); synthGain.gain.value = 0.02; synthGain.connect(audioCtx.destination);
-        let notes = style==='piano' ? [440,523.25,659.25,523.25] : [392,440,392,330];
-        let i=0;
-        synthTimer = setInterval(()=>{
-          synthOsc = audioCtx.createOscillator(); synthOsc.type = 'sine'; synthOsc.frequency.value = notes[i%notes.length]; synthOsc.connect(synthGain);
-          synthOsc.start(); synthOsc.stop(audioCtx.currentTime+0.5);
-          i++;
-        },600);
-      }catch(e){console.warn('Audio not supported',e)}
-    }
-    function stopSynth(){ if(synthTimer) clearInterval(synthTimer); if(synthOsc) try{synthOsc.stop()}catch(e){} }
-
-    // Tiny confetti
-    const confCanvas = document.getElementById('confetti');
-    const ctx = confCanvas.getContext('2d');
-    let confettiPieces=[]; let confettiRunning=false; function resize(){confCanvas.width=confCanvas.clientWidth;confCanvas.height=confCanvas.clientHeight}
-    window.addEventListener('resize',resize); resize();
-    function makeConfetti(){ for(let i=0;i<80;i++){confettiPieces.push({x:Math.random()*confCanvas.width,y:Math.random()*-confCanvas.height,width:6+Math.random()*8,height:8+Math.random()*12,vy:2+Math.random()*4,angle:Math.random()*360,color:`hsl(${Math.floor(Math.random()*360)},70%,60%)`,spin:Math.random()*0.2})} }
-    function renderConfetti(){ ctx.clearRect(0,0,confCanvas.width,confCanvas.height); for(let p of confettiPieces){p.y+=p.vy; p.angle+=p.spin; ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.angle); ctx.fillStyle=p.color; ctx.fillRect(-p.width/2,-p.height/2,p.width,p.height); ctx.restore(); } confettiPieces = confettiPieces.filter(p=>p.y<confCanvas.height+50); if(confettiRunning) requestAnimationFrame(renderConfetti); }
-    document.getElementById('startConfetti').addEventListener('click', ()=>{confettiRunning=true; makeConfetti(); renderConfetti();});
-    document.getElementById('stopConfetti').addEventListener('click', ()=>{confettiRunning=false; confettiPieces=[]; ctx.clearRect(0,0,confCanvas.width,confCanvas.height);});
-
-    // initialize preview with defaults
-    updateBtn.click();
-  </script>
+    <script>
+        const card = document.getElementById('card');
+        const updateButton = document.getElementById('updateMessage');
+        const customMessage = document.getElementById('customMessage');
+        const senderName = document.getElementById('senderName');
+        const displayMessage = document.getElementById('displayMessage');
+        const displaySignature = document.getElementById('displaySignature');
+        const displayName = document.getElementById('displayName');
+        
+        // Lật thiệp khi nhấn
+        card.addEventListener('click', function() {
+            this.classList.toggle('flipped');
+        });
+        
+        // Cập nhật lời chúc
+        updateButton.addEventListener('click', function() {
+            displayMessage.textContent = customMessage.value;
+            if (senderName.value.trim() !== '') {
+                displayName.textContent = senderName.value;
+            } else {
+                displayName.textContent = 'Học sinh';
+            }
+            
+            // Tạo hiệu ứng confetti
+            createConfetti();
+        });
+        
+        // Tạo hiệu ứng confetti
+        function createConfetti() {
+            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#ffa5a5', '#96ceb4'];
+            const cardBack = document.querySelector('.card-back');
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = Math.random() * 100 + '%';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.width = Math.random() * 10 + 5 + 'px';
+                confetti.style.height = confetti.style.width;
+                confetti.style.opacity = Math.random() * 0.7 + 0.3;
+                
+                cardBack.appendChild(confetti);
+                
+                // Xóa confetti sau 3 giây
+                setTimeout(() => {
+                    confetti.remove();
+                }, 3000);
+            }
+        }
+    </script>
 </body>
 </html>
